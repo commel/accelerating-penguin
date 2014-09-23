@@ -21,14 +21,18 @@ class Penguin extends StageAware {
     return bitmap;
   }
   
+  public function update() {
+    bitmap.x = bitmap.x + speed;
+		checkBorders();
+    checkSpeed();    
+  }
+  
   public function boost(target: String) {
 		if (target == "left") {
       decel();
     } else if (target == "right") {
       accel();
     }
-		checkBorders();
-    checkSpeed();
   }
    
   private function checkSpeed() {
@@ -39,6 +43,14 @@ class Penguin extends StageAware {
         speed = -maxSpeed;
       }
     } 
+  }
+  
+  public function brake() {
+    speed = speed * -0.25;
+    
+    if (Math.abs(speed) <= 0.25) {
+      speed = 0.0;
+    }
   }
   
   private function accel() {
@@ -62,6 +74,6 @@ class Penguin extends StageAware {
   }
   
   public function debug() {
-    trace('Speed: $speed');
+    return { speed: speed, x: bitmap.x, y: bitmap.y };
   }
 }

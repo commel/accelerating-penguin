@@ -12,6 +12,7 @@ class Main extends Sprite {
 
   private var penguin:Penguin;
   private var keys = new Map<Int, Bool>();
+  private var debugInfo:TextField = new TextField();
   
   private var inited = false;
   
@@ -37,21 +38,26 @@ class Main extends Sprite {
     
     var instructions:TextField = new TextField();
     instructions.selectable = false;
-    instructions.text = "LEFT/RIGHT to accel/decel";
+    instructions.text = "LEFT/RIGHT to accel/decel, SPACE to brake";
     instructions.textColor = 0xffffff;
     instructions.defaultTextFormat = new TextFormat("_sans", 12);
     instructions.x = 15;
     instructions.y = 370;
-    instructions.width = 300;
+    instructions.width = 350;
     addChild(instructions);    
 
     this.addEventListener(Event.ENTER_FRAME, gameLoop);    
     
     addChild(penguin.getSprite());
     
+    debugInfo.x = 450;
+    debugInfo.y = 370;
+    debugInfo.width = 300;
+    
+    addChild(debugInfo);    
+    
     stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
     stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);    
-    
   }
   
   private function gameLoop(e:Event) {
@@ -59,9 +65,14 @@ class Main extends Sprite {
       penguin.boost("left");
     } else if (keys[39]) {
       penguin.boost("right");
+    } else if (keys[32]) {
+      penguin.brake();
     }
+    
+    penguin.update();
       
-    penguin.debug();
+    var data = penguin.debug();
+    debugInfo.text = '$data';
   }
   
   private function onKeyDown(evt: KeyboardEvent) {

@@ -5,7 +5,7 @@ class StageAware {
   private var stageHeight = 0;
   
   public function new(stageWidth: Int, stageHeight: Int) {
-    this.stageWidth = stageWidth - 100;
-    this.stageHeight = stageHeight - 100;
+    this.stageWidth = stageWidth - 200;
+    this.stageHeight = stageHeight - 200;
   }
 }
