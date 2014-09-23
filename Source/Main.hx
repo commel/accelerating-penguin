@@ -62,10 +62,17 @@ class Main extends Sprite {
   
   private function gameLoop(e:Event) {
     if (keys[37]) {
+      trace("left");
       penguin.boost("left");
-    } else if (keys[39]) {
+    } 
+    
+    if (keys[39]) {
+      trace("right");
       penguin.boost("right");
-    } else if (keys[32]) {
+    }
+      
+    if (keys[32]) {
+      trace("brake");
       penguin.brake();
     }
     
